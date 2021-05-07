@@ -1,0 +1,33 @@
+<app-dialog>
+    <div class="row justify-content-center my-auto" body>
+        <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="logIn()">
+            <div class="row">
+                <div class="col-lg-12 my-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label> Email </mat-label>
+                        <input matInput type="email" placeholder="email" formControlName="email" id="email" />
+
+                        <mat-error *ngIf="hasError('email', 'required')">Email is required </mat-error>
+                        <mat-error *ngIf="hasError('email', 'email')"> Email must be a valid email address </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-12 my-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label> password </mat-label>
+                        <input matInput type="password" placeholder="password" formControlName="password"
+                            id="password" />
+
+                        <mat-error *ngIf="hasError('password', 'required')">password is required </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <button [disabled]="loading" class="btn btn-success">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Login
+                </button>
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+            </div>
+        </form>
+    </div>
+</app-dialog>
