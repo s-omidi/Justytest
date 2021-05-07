@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { IUser } from '../../models/user.model';
 
@@ -44,17 +43,17 @@ export class LoginModalComponent implements OnInit {
   }
 
   execute() {
-    this.authenticationService.login(this.user)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.dialogRef.closeAll();
-        },
-        error: error => {
-          this.error = error;
-          this.loading = false;
-        }
-      });
+    this.authenticationService.login(this.user).subscribe(el => {
+      this.loading = false;
+      this.error = '';
+      this.dialogRef.closeAll();
+    },
+      err => {
+        this.error = err
+        this.loading = false;
+      },
+      () => console.log("Processing Complete.")
+    );
   }
 
   public hasError = (controlName: string, errorName: string) => {

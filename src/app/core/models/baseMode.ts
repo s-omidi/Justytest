@@ -1,3 +1,4 @@
-export interface IBaseModel {
+
+export interface IBaseModel  {
     id: string;
 }
